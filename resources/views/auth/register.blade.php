@@ -15,6 +15,12 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+        <!-- image input  -->
+        <div class="mt-4">
+            <x-input-label for="image" :value="__('image')" />
+            <x-text-input id="image" class="block mt-1 w-full" type="text" name="image" :value="old('image')" required autocomplete="username" />
+            <x-input-error :messages="$errors->get('image')" class="mt-2" />
+        </div>
 
         <!-- Password -->
         <div class="mt-4">
