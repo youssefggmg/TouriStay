@@ -33,6 +33,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            "role" => ['requerd','in:tourist,owner,admin']
             // 'image' => ['required,string']
         ]);
 
@@ -40,12 +41,22 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'image' => $request->image
+            'image' => $request->image,
+            "role"=>$request->role
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
+        if ($user->role == "tourist") {
+            return redirect("/user/home");
+        }
+        else if ($user->role == "owner") {
+            return redirect("/owner/home");
+        }
+        else if ($user->role == "admin") {
+            return redirect("/admin/home");
+        }
 
         return redirect(route('dashboard', absolute: false));
     }
