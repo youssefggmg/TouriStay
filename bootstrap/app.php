@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             "istourist"=>\App\Http\Middleware\touristValidation::class,
             "isOwner"=>\App\Http\Middleware\ownerValidation::class,
+            "isAdmine"=>\App\Http\Middleware\adminValidator::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
