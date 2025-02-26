@@ -49,7 +49,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
         if ($user->role == "tourist") {
-            return redirect("/user/home");
+            return redirect("/tourist/home");
         }
         else if ($user->role == "owner") {
             return redirect("/owner/home");
