@@ -1,4 +1,4 @@
-<div class="w-full lg:w-64 mb-6 lg:mb-0 lg:mr-8">
+<div class=" lg:w-64 mb-6 lg:mb-0 lg:mr-8">
     <div class="bg-white rounded-xl shadow-md p-5 sticky top-24">
         <h3 class="font-semibold text-lg mb-4 text-gray-800">Filters</h3>
 
