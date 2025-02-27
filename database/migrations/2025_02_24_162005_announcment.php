@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create("announcment",function(Blueprint $table){
             $table->id();
+            $table->string("title");
             $table->string("city");
             $table->decimal("price")->default(00.00);
             $table->date("disponibility");
