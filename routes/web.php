@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tourist\tourist;
+use App\Http\Controllers\owner\owner;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -21,6 +22,7 @@ Route::middleware("istourist")->group(function(){
     Route::get("/tourist/editform",[tourist::class,"editForm"]);
     Route::patch("/tourist/edit",[tourist::class,"updateUserInfo"]);
 });
-Route::get("/test",[tourist::class,"editForm"]);
+
+Route::get("/test",[owner::class,"index"]);
 
 require __DIR__.'/auth.php';

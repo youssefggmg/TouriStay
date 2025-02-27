@@ -36,6 +36,10 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function announcements()
+    {
+        return $this->hasMany(announcmentModel::class, 'user_id');
+    }
 
     /**
      * Get the attributes that should be cast.

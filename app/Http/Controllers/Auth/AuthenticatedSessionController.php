@@ -28,7 +28,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         $user = Auth::user();
-        // dd($user);
+        dd($user);
         if ($user->role == "tourist") {
             return redirect("/tourist/home");
         }
