@@ -43,46 +43,56 @@ class tourist extends Controller
 
         return view("tourist.profile", compact('user'));
     }
-    public function editForm()
+    public function editForm(Request $request)
     {
         $user = Auth::user();
         return view("tourist.editform", compact('user'));
     }
     public function updateUserInfo(Request $request)
     {
-        // Validation rules
-        $validate = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,',
-            'current_password' => 'string|min:6',
-            'new_password' => 'string|min:6',
-            'confirm_password' => 'string',
+        // Validation rules (all fields optional)
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:255|unique:users,email,' . $request->user()->id,
+            'current_password' => 'nullable|string|min:6',
+            'new_password' => 'nullable|string|min:6|different:current_password',
+            'confirm_password' => 'nullable|string|same:new_password',
         ]);
 
+        $user = $request->user();
 
-        if ($request->current_password) {
-            // Check if the current password is correct
-            if (!Hash::check($request->current_password, $request->user()->password)) {
+        // Update name if provided
+        if ($request->filled('name')) {
+            $user->name = $request->name;
+        }
+
+        // Update email if provided
+        if ($request->filled('email')) {
+            $user->email = $request->email;
+        }
+
+        // Handle password update only if current_password is provided
+        if ($request->filled('current_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
                 return Redirect::back()->withErrors(['current_password' => 'The current password is incorrect.']);
             }
-            // check if the new passwords are the same
-            if ($request->new_password !== $request->confirm_password) {
-                return Redirect::back()->withErrors(['confirm_password' => 'The new password and confirm password are not th same.']);
+
+            // Check if both new_password and confirm_password are filled and match
+            if ($request->filled('new_password') && $request->filled('confirm_password')) {
+                if ($request->new_password === $request->confirm_password) {
+                    $user->password = Hash::make($request->new_password);
+                } else {
+                    return Redirect::back()->withErrors(['confirm_password' => 'The new password and confirmation do not match.']);
+                }
             }
         }
 
-        // Update user information
-        $user = $request->user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        // Update password if provided
-        if ($request->filled('new_password')) {
-            $user->password = Hash::make($request->new_password);
+        // Save only if changes were made
+        if ($user->isDirty()) {
+            $user->save();
+            return Redirect::route('profile.edit')->with('status', 'Profile updated successfully!');
         }
 
-        // Save the updated user
-        $user->save();
-
-        return Redirect::route('profile.edit')->with('status', 'Profile updated successfully!');
+        return Redirect::route('profile.edit')->with('status', 'No changes were made.');
     }
 }
