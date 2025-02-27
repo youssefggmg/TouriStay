@@ -16,7 +16,10 @@ Route::middleware('auth')->group(function () {
 Route::middleware("istourist")->group(function(){
     Route::get("/tourist/home/{perpage?}",[tourist::class,"index"]);
     Route::get("/search",[tourist::class,"search"]);
-    // Route::get("/profile",[tourist::class,"profile"]);
+    Route::get("/test",[tourist::class,"editForm"]);
+    Route::get("/tourist/profile",[tourist::class,"profile"]);
+    Route::get("/tourist/editform",[tourist::class,"editForm"]);
+    Route::patch("/tourist/edit",[tourist::class,"updateUserInfo"]);
 });
 Route::get("/test",[tourist::class,"editForm"]);
 

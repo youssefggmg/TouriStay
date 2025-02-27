@@ -44,7 +44,7 @@
 
                     <!-- Dropdown Menu -->
                     <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg py-2">
-                        <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <a href="/tourist/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             <i class="fas fa-user mr-2"></i> Profile
                         </a>
                         <a href="/logout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">

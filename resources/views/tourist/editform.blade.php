@@ -5,7 +5,9 @@
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Update Profile</h2>
 
-            <form action="#" method="POST" class="space-y-4">
+            <form action="/tourist/edit" method="post" class="space-y-4">
+                @method("PATCH")
+                @csrf
                 <!-- Name -->
                 <div>
                     <label class="block text-gray-700 font-semibold">Full Name</label>

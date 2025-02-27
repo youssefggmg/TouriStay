@@ -10,12 +10,14 @@
             <p class="text-gray-500 text-sm">{{$user->role}}</p>
             <div class="mt-4">
                 <button class="!bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
-                    edit info 
+                    <a href="/tourist/edit">
+                        edit info 
+                    </a>
                 </button>
             </div>
             <div class="mt-4 text-gray-600 text-sm">
                 <p><strong>Location:</strong> New York, USA</p>
-                <a href="/tourist/edit"><strong>Email:</strong> {{$user->email}}</a>
+                <p><strong>Email:</strong> {{$user->email}}</p>
             </div>
         </div>
     </div>

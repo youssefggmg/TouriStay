@@ -90,9 +90,9 @@ class tourist extends Controller
         // Save only if changes were made
         if ($user->isDirty()) {
             $user->save();
-            return Redirect::route('profile.edit')->with('status', 'Profile updated successfully!');
+            return redirect("/tourist/editform");
         }
 
-        return Redirect::route('profile.edit')->with('status', 'No changes were made.');
+        return redirect("/tourist/editform");
     }
 }
