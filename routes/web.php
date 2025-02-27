@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Tourist\tourist;
 
 Route::get('/dashboard', function () {
@@ -15,8 +13,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get("/tourist/home/{perpage?}",[tourist::class,"index"])->middleware("istourist");
-Route::get("/search",[tourist::class,"search"]);
-Route::get("/test",[tourist::class,"search"]);
+Route::middleware("istourist")->group(function(){
+    Route::get("/tourist/home/{perpage?}",[tourist::class,"index"]);
+    Route::get("/search",[tourist::class,"search"]);
+    // Route::get("/profile",[tourist::class,"profile"]);
+});
+Route::get("/test",[tourist::class,"profile"]);
 
 require __DIR__.'/auth.php';

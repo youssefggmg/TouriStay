@@ -1,3 +1,4 @@
+@props(["user"])
 <header class="bg-white shadow-md sticky top-0 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -19,7 +20,7 @@
                         <form action="/search" method="get">
                             <input type="text" placeholder="Search for destinations, properties..."
                                 class="inline w-3/4 pl-10 pr-3 py-2 border border-gray-300 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent" name="search">
-                            <button type="submit" class="rounded-xl w-16 bg-red-400 text-white">Search</button>
+                            <button type="submit" class="rounded-xl w-16 !bg-red-400 text-white">Search</button>
                         </form>
                     </div>
                 </div>
@@ -38,7 +39,7 @@
                 <div x-data="{ open: false }" class="relative">
                     <!-- Profile Button -->
                     <button @click="open = !open" class="bg-gray-100 rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 p-1">
-                        <img class="h-8 w-8 rounded-full" src="/api/placeholder/32/32" alt="Profile">
+                        <img class="h-8 w-8 rounded-full" src="{{$user->image}}" alt="Profile">
                     </button>
 
                     <!-- Dropdown Menu -->
