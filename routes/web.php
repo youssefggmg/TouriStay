@@ -18,6 +18,6 @@ Route::middleware("istourist")->group(function(){
     Route::get("/search",[tourist::class,"search"]);
     // Route::get("/profile",[tourist::class,"profile"]);
 });
-Route::get("/test",[tourist::class,"profile"]);
+Route::get("/test",[tourist::class,"editForm"]);
 
 require __DIR__.'/auth.php';

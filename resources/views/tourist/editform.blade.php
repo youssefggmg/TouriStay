@@ -9,14 +9,14 @@
                 <!-- Name -->
                 <div>
                     <label class="block text-gray-700 font-semibold">Full Name</label>
-                    <input type="text" name="name" placeholder="Enter your name"
+                    <input type="text" name="name" placeholder="Enter your name" value="{{$user->name}}"
                         class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
 
                 <!-- Email -->
                 <div>
                     <label class="block text-gray-700 font-semibold">Email</label>
-                    <input type="email" name="email" placeholder="Enter your email"
+                    <input type="email" name="email" placeholder="Enter your email" value="{{$user->email}}"
                         class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
 
@@ -42,7 +42,7 @@
                 </div>
 
                 <button type="submit"
-                    class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition">Update
+                    class="w-full !bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition">Update
                     Info</button>
             </form>
         </div>
