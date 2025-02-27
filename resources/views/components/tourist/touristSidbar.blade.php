@@ -64,6 +64,7 @@
         <div class="mb-3">
             <h4 class="font-medium text-gray-700 mb-2">Cards Per Page</h4>
             <select
+            id="perpage"
                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring focus:ring-rose-500 focus:ring-opacity-50 text-gray-700 py-2 px-3 bg-white">
                 <option value="6">6 cards</option>
                 <option value="12">12 cards</option>
@@ -72,8 +73,42 @@
             </select>
         </div>
 
-        <button class="w-full mt-4 py-2 px-4 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-lg">
+        <button class="w-full mt-4 py-2 px-4 !bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-lg"
+            id="submit">
             Apply Filters
         </button>
     </div>
 </div>
+<script>
+    let submit = document.querySelector("#submit");
+let perpage = document.querySelector("#perpage");
+
+submit.addEventListener("click", () => {
+    let perpageValue = perpage.value; // Get the new perpage value
+    let url = new URL(window.location.href); // Get current URL
+    let pathParts = url.pathname.split("/"); // Split path into parts
+
+    // Find index of 'test' in the URL path
+    let testIndex = pathParts.indexOf("home");
+
+    if (testIndex !== -1) {
+        // Check if a number exists after 'test'
+        if (!isNaN(pathParts[testIndex + 1])) {
+            // Replace the existing number
+            pathParts[testIndex + 1] = perpageValue;
+        } else {
+            // Insert the number after 'test'
+            pathParts.splice(testIndex + 1, 0, perpageValue);
+        }
+    } else {
+        console.error("The 'test' segment was not found in the URL.");
+        return;
+    }
+
+    // Construct the new URL with preserved query parameters
+    url.pathname = pathParts.join("/");
+    // console.log(url.pathname);
+    
+     window.location.href = url.toString(); // Redirect to the new URL
+});
+</script>

@@ -15,9 +15,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get("/tourist/home",function(){
-    return view("tourist.home");
-})->middleware("istourist");
-Route::get("/test",[tourist::class,"index"]);
+Route::get("/tourist/home/{perpage?}",[tourist::class,"index"])->middleware("istourist");
+Route::get("/search",[tourist::class,"search"]);
+Route::get("/test",[tourist::class,"search"]);
 
 require __DIR__.'/auth.php';

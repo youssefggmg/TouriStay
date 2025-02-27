@@ -1,54 +1,34 @@
-<div class="mt-10 flex items-center justify-between">
-    <div class="flex-1 flex justify-between sm:hidden">
-        <a href="#"
-            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Previous
-        </a>
-        <a href="#"
-            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
-            Next
-        </a>
-    </div>
-    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-            <p class="text-sm text-gray-700">
-                Showing <span class="font-medium">1</span> to <span class="font-medium">6</span> of <span
-                    class="font-medium">203</span> results
-            </p>
-        </div>
-        <div>
-            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                <a href="#"
-                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                    <span class="sr-only">Previous</span>
-                    <i class="fas fa-chevron-left"></i>
-                </a>
-                <a href="#" aria-current="page"
-                    class="z-10 bg-rose-50 border-rose-500 text-rose-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                    1
-                </a>
-                <a href="#"
-                    class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                    2
-                </a>
-                <a href="#"
-                    class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                    3
-                </a>
-                <span
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                    ...
-                </span>
-                <a href="#"
-                    class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
-                    34
-                </a>
-                <a href="#"
-                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                    <span class="sr-only">Next</span>
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            </nav>
-        </div>
-    </div>
-</div>
+@if ($paginator->hasPages())
+    <nav class="flex justify-center space-x-2 mt-4">
+        {{-- Previous Page Link --}}
+        @if ($paginator->onFirstPage())
+            <span class="px-4 py-2 bg-gray-300 text-gray-500 rounded cursor-not-allowed">Prev</span>
+        @else
+            <a href="{{ $paginator->previousPageUrl() }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Prev</a>
+        @endif
+
+        {{-- Pagination Elements --}}
+        @foreach ($elements as $element)
+            @if (is_string($element))
+                <span class="px-4 py-2 bg-gray-300 text-gray-500 rounded">{{ $element }}</span>
+            @endif
+
+            @if (is_array($element))
+                @foreach ($element as $page => $url)
+                    @if ($page == $paginator->currentPage())
+                        <span class="px-4 py-2 bg-blue-700 text-white rounded">{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">{{ $page }}</a>
+                    @endif
+                @endforeach
+            @endif
+        @endforeach
+
+        {{-- Next Page Link --}}
+        @if ($paginator->hasMorePages())
+            <a href="{{ $paginator->nextPageUrl() }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">Next</a>
+        @else
+            <span class="px-4 py-2 bg-gray-300 text-gray-500 rounded cursor-not-allowed">Next</span>
+        @endif
+    </nav>
+@endif
