@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\announcmentModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tourist\tourist;
 use App\Http\Controllers\owner\owner;
@@ -35,7 +36,8 @@ Route::middleware("isOwner")->group(function () {
 });
 Route::get("/test", function () {
     $user = Auth::user();
-    return view("owner.createannoucment", compact("user"));
+    $announcments =announcmentModel::paginate(5);
+    return view("admin.home", compact("user","announcments"));
 });
 
 require __DIR__ . '/auth.php';
