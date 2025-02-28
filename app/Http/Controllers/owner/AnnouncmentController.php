@@ -110,8 +110,9 @@ class AnnouncmentController extends Controller
     
     public function deletedAnnouncements()
     {
-        $deletedAnnouncements = announcmentModel::onlyTrashed()->get(); // Get only soft deleted
-        return view('owner.deleted_announcements', compact('deletedAnnouncements'));
+        $user = Auth::user();
+        $deletedAnnouncements = announcmentModel::onlyTrashed()->with('owner')->get();;
+        return view('admin.deleted', compact('deletedAnnouncements',"user"));
     }
 
 }

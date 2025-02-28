@@ -5,6 +5,7 @@ use App\Models\announcmentModel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Tourist\tourist;
 use App\Http\Controllers\owner\owner;
+use App\Http\Controllers\admin;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\owner\AnnouncmentController;
 
@@ -34,12 +35,10 @@ Route::middleware("isOwner")->group(function () {
     Route::put('/announcements/update/{id}', [AnnouncmentController::class, 'update']);
 });
 Route::get('/announcements/delete/{id}', [AnnouncmentController::class, 'delete']);
-Route::get("/test", function () {
-    $user = Auth::user();
-    $announcments =announcmentModel::paginate(5);
-    $announcmentss =announcmentModel::all();
-    // dd($announcmentss);
-    return view("admin.home", compact("user","announcments"));
+Route::middleware("isAdmine")->group(function(){
+    Route::get("/admin/home", [admin::class,"index"]);
+    Route::get("/admin/deletedaanoucments", [AnnouncmentController::class,"deletedAnnouncements"]);
+    Route::get("/admin/owners", [admin::class,"owners"]);
 });
 
 require __DIR__ . '/auth.php';
