@@ -7,7 +7,7 @@ use App\Models\announcmentModel;
 
 class EquipmetModel extends Model
 {
-    protected $table = 'equipments';
+    protected $table = 'equipment';
     protected $fillable = [
         'name',
     ];

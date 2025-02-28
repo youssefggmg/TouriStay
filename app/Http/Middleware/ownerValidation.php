@@ -16,7 +16,7 @@ class ownerValidation
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()|| Auth::user()->role!=="tourist") {
+        if (!Auth::check()|| Auth::user()->role!=="owner") {
             return redirect("/");
         }
         return $next($request);

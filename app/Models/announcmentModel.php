@@ -10,6 +10,7 @@ class announcmentModel extends Model
 {
     protected $table = 'announcment';
     protected $fillable = [
+        'title',
         "city",
         "price",
         "disponibility",
@@ -18,7 +19,8 @@ class announcmentModel extends Model
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
     }
-    public function equipmets(){
-        return $this->belongsToMany(EquipmetModel::class, 'announcement_equipment', 'announcement_id',  'equipment_id');
+    public function equipments()
+    {
+        return $this->belongsToMany(EquipmetModel::class, 'announcment_equipment', 'annoucment_id', 'equipment_id');
     }
 }

@@ -14,7 +14,7 @@
 
             <!-- Navigation -->
             <div class="flex items-center space-x-4">
-                <a href="/tourist/home" class="text-gray-800 hover:text-rose-500 px-3 py-2 rounded-md text-sm font-medium">
+                <a href="/owner/home" class="text-gray-800 hover:text-rose-500 px-3 py-2 rounded-md text-sm font-medium">
                     <i class="fas fa-home mr-1"></i> Home
                 </a>
                 <a href="/tourist/favorit" class="text-gray-800 hover:text-rose-500 px-3 py-2 rounded-md text-sm font-medium">
