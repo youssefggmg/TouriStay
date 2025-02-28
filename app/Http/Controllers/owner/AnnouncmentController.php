@@ -94,4 +94,18 @@ class AnnouncmentController extends Controller
 
         return redirect()->back()->with('success', 'Announcement updated successfully!');
     }
+    public function delete($id)
+    {
+        $announcement = announcmentModel::findOrFail($id);
+
+        if (Auth::id() !== $announcement->user_id) {
+            return redirect()->back()->with('error', 'Unauthorized Access!');
+        }
+
+        // Detach all related equipments before deleting
+        $announcement->equipments()->detach();
+        $announcement->delete();
+
+        return redirect()->back()->with('success', 'Announcement deleted successfully!');
+    }
 }

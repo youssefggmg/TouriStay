@@ -7,6 +7,6 @@ class OwnerCard extends Component
 {
     public function render()
     {
-        return view('components.owner.ownerHeader');
+        return view('components.owner.ownercard');
     }
 }
