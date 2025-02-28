@@ -32,11 +32,13 @@ Route::middleware("isOwner")->group(function () {
     Route::post('/announcments/store', [AnnouncmentController::class, 'store']);
     Route::get('/announcements/edit/{id}', [AnnouncmentController::class, 'edit']);
     Route::put('/announcements/update/{id}', [AnnouncmentController::class, 'update']);
-    Route::delete('/announcements/delete/{id}', [AnnouncmentController::class, 'delete']);
 });
+Route::get('/announcements/delete/{id}', [AnnouncmentController::class, 'delete']);
 Route::get("/test", function () {
     $user = Auth::user();
     $announcments =announcmentModel::paginate(5);
+    $announcmentss =announcmentModel::all();
+    // dd($announcmentss);
     return view("admin.home", compact("user","announcments"));
 });
 

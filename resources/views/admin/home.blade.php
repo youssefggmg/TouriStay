@@ -8,7 +8,7 @@
                 <div class="flex-1">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-nowrap">
                         @foreach ($announcments as $announcment )
-                        <x-admin.admincards :announcment="$announcment"></x-admin.admin-card>
+                        <x-admin.admincards :announcment="$announcment"></x-admin.admincards>
                         @endforeach
                     </div>
                     {!! $announcments->links() !!}

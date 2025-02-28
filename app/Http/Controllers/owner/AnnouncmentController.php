@@ -95,17 +95,23 @@ class AnnouncmentController extends Controller
         return redirect()->back()->with('success', 'Announcement updated successfully!');
     }
     public function delete($id)
-{
-    $user = Auth::user();
-    $announcement = announcmentModel::findOrFail($id);
+    {
+        $user = Auth::user();
+        $announcement = announcmentModel::findOrFail($id);
 
-    if ($announcement->user_id !== $user->id) {
+        if ($announcement->user_id !== $user->id && $user->role != "admin") {
+            return redirect()->back();
+        }
+
+        $announcement->delete(); // Soft delete
+
         return redirect()->back();
     }
-
-    $announcement->delete(); // Soft delete
-
-    return redirect()->back();
-}
+    
+    public function deletedAnnouncements()
+    {
+        $deletedAnnouncements = announcmentModel::onlyTrashed()->get(); // Get only soft deleted
+        return view('owner.deleted_announcements', compact('deletedAnnouncements'));
+    }
 
 }

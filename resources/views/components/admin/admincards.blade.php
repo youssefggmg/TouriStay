@@ -4,12 +4,14 @@
     <div class="relative">
         <img src="/api/placeholder/400/300" alt="Luxury Villa" class="w-full h-48 object-cover">
         <button class="absolute top-3 right-3 p-1.5 bg-white rounded-full shadow-sm hover:bg-rose-50">
-            <i class="fa-solid fa-trash" style="color: #f02828;"></i>
+            <a href="/announcements/delete/{{$announcment->id}}">
+                <i class="fa-solid fa-trash" style="color: #f02828;"></i>
+            </a>
         </button>
     </div>
     <div class="p-4">
         <div class="flex justify-between items-start">
-            <h3 class="text-lg font-semibold text-gray-900 mb-1">title</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">{{$announcment->title}}</h3>
             <div class="flex items-center">
                 <i class="fas fa-star text-yellow-400"></i>
                 <span class="ml-1 text-gray-700">4.9</span>
