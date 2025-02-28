@@ -27,7 +27,7 @@ class AnnouncmentController extends Controller
             'price' => 'required|numeric',
             'disponibility' => 'required|date',
             'user_id' => 'required|exists:users,id',
-            'equipments' => 'array', 
+            'equipments' => 'array',
             'equipments.*' => 'exists:equipment,id' // Validate each equipment ID
         ]);
 
@@ -45,5 +45,53 @@ class AnnouncmentController extends Controller
         }
 
         return redirect()->back()->with('success', 'Announcement created successfully!');
+    }
+    public function edit($id)
+    {
+        $announcement = announcmentModel::find($id);
+        // dd($announcement);
+        $equipments = EquipmetModel::all();
+
+        // Check if the logged-in user owns the announcement
+        if (Auth::id() !== $announcement->user_id) {
+            return redirect()->back()->with('error', 'Unauthorized Access!');
+        }
+        $user = Auth::user();
+
+        return view('owner.editannouncement', compact('announcement', 'equipments', 'user'));
+    }
+    public function update(Request $request, $id)
+    {
+        $announcement = announcmentModel::findOrFail($id);
+
+        if (Auth::id() !== $announcement->user_id) {
+            return redirect()->back()->with('error', 'Unauthorized Access!');
+        }
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'disponibility' => 'required|date',
+            'equipments' => 'array',
+            'equipments.*' => 'exists:equipment,id'
+        ]);
+
+        // Update announcement
+        $announcement->update([
+            'title' => $validated['title'],
+            'city' => $validated['city'],
+            'price' => $validated['price'],
+            'disponibility' => $validated['disponibility']
+        ]);
+
+        // Sync the selected equipments
+        if (!empty($validated['equipments'])) {
+            $announcement->equipments()->sync($validated['equipments']);
+        } else {
+            $announcement->equipments()->detach(); // Remove all equipments if none selected
+        }
+
+        return redirect()->back()->with('success', 'Announcement updated successfully!');
     }
 }
